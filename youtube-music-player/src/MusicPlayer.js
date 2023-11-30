@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
-import YouTube from 'react-youtube';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/youtube'; // Import the YouTube component from react-player
 
 function MusicPlayer() {
-  const [videoId, setVideoId] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
 
-  const onVideoReady = (event) => {
-    // Do something when the video is ready (optional)
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      // Prevent the default form submission behavior
+      event.preventDefault();
+
+      // Trigger the video playback when Enter key is pressed
+      setVideoUrl(event.target.value);
+    }
   };
 
   const onVideoEnd = () => {
-    // Reset the video ID when it ends
-    setVideoId('');
+    // Reset the video URL when the video ends
+    setVideoUrl('');
   };
 
   return (
@@ -19,14 +24,16 @@ function MusicPlayer() {
       <input
         type="text"
         placeholder="Enter YouTube video URL"
-        value={videoId}
-        onChange={(e) => setVideoId(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
-      {videoId && (
-        <>
-          <YouTube videoId={videoId} onReady={onVideoReady} />
-          <ReactPlayer url={`https://www.youtube.com/watch?v=${videoId}`} playing onEnded={onVideoEnd} />
-        </>
+      {videoUrl && (
+        <ReactPlayer
+          url={videoUrl}
+          width="100%"
+          height="100%"
+          controls
+          onEnded={onVideoEnd}
+        />
       )}
     </div>
   );
