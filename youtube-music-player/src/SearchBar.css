@@ -1,0 +1,12 @@
+/* src/SearchBar.css */
+
+.search-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
